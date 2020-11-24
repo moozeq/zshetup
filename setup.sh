@@ -8,13 +8,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HO
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-pip3 install virtualenv Pygments
+pip3 install virtualenv pygments
 
 sed -i 's@ZSH_THEME="robbyrussell"@ZSH_THEME="powerlevel10k/powerlevel10k"@g' ~/.zshrc
 sed -i 's@plugins=(git)@plugins=(git extract colorize cp rsync pip virtualenv zsh-autosuggestions zsh-syntax-highlighting)@g' ~/.zshrc
 
 echo "alias edt='nano ~/.zshrc'" >> ~/.zshrc
-echo "alias edt='nano ~/.zshrc'" >> ~/.zshrc
+echo "alias src='source ~/.zshrc'" >> ~/.zshrc
 echo "alias cls='clear && printf \"\e[3J\"'" >> ~/.zshrc
 
 zsh
