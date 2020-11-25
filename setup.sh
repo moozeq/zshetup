@@ -10,7 +10,34 @@ else
     exit 1
 fi
 
+# check if successfully installed zsh
+# if not, install from sources
+if [[ ! $(which zsh) ]]; then
+    curl https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz -o ncurses.tar.gz
+    tar xf ncurses.tar.gz
+    cd ncurses-*
+    ./configure --prefix=$HOME/local CXXFLAGS="-fPIC" CFLAGS="-fPIC"
+    make -j && make install
+    cd ..
+
+    curl https://sourceforge.net/projects/zsh/files/latest/download -o zsh.tar.xz
+    tar xf zsh.tar.xz
+    cd zsh-*
+    ./configure --prefix="$HOME/local" CPPFLAGS="-I$HOME/local/include" LDFLAGS="-L$HOME/local/lib"
+    make -j && make install
+    cd ..
+
+    # export path to zsh
+    export PATH=$HOME/local/bin:$PATH
+
+    # change default shell
+    echo "export PATH=\$HOME/local/bin:\$PATH" >> ~/.bashrc
+    echo "export SHELL=\`which zsh\`" >> ~/.bashrc
+    echo "[ -f \"\$SHELL\" ] && exec \"\$SHELL\" -l" >> ~/.bashrc
+fi
+
 chsh -s $(which zsh)
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -26,6 +53,6 @@ echo "alias edt='nano ~/.zshrc'" >> ~/.zshrc
 echo "alias src='source ~/.zshrc'" >> ~/.zshrc
 echo "alias cls='clear && printf \"\e[3J\"'" >> ~/.zshrc
 echo "alias ll='ls -hla'" >> ~/.zshrc
-echo "export PATH=\"$PATH:$HOME/.local/bin\"" >> ~/.zshrc
+echo "export PATH=\"\$PATH:\$HOME/.local/bin\"" >> ~/.zshrc
 
 zsh
