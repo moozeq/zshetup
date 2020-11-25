@@ -17,3 +17,10 @@ Install and configure zsh environment. Single script which:
 apt update && apt install -y curl
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/moozeq/ZSH_Setup/master/setup.sh)"
 ```
+
+# Docker
+
+```
+docker build -t zsh-ubuntu github.com/moozeq/ZSH_Setup
+docker run --name run_docker_run -it zsh-ubuntu
+```
