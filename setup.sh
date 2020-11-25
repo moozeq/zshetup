@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [ "$OSTYPE" == "linux-gnu"* ]; then
     apt update && apt install -y python3 python3-venv nano curl wget rsync git zsh
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+elif [ "$OSTYPE" == "darwin"* ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     brew update && brew install python3 curl wget rsync git zsh
 else
     echo "[-] OS $OSTYPE not recognized, abort"
