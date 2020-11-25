@@ -13,14 +13,14 @@ fi
 # check if successfully installed zsh
 # if not, install from sources
 if [[ ! $(which zsh) ]]; then
-    curl https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz -o ncurses.tar.gz
+    curl -L https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz > ncurses.tar.gz
     tar xf ncurses.tar.gz
     cd ncurses-*
     ./configure --prefix=$HOME/local CXXFLAGS="-fPIC" CFLAGS="-fPIC"
     make -j && make install
     cd ..
 
-    curl https://sourceforge.net/projects/zsh/files/latest/download -o zsh.tar.xz
+    curl -L https://sourceforge.net/projects/zsh/files/latest/download > zsh.tar.xz
     tar xf zsh.tar.xz
     cd zsh-*
     ./configure --prefix="$HOME/local" CPPFLAGS="-I$HOME/local/include" LDFLAGS="-L$HOME/local/lib"
