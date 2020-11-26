@@ -13,6 +13,8 @@ fi
 # check if successfully installed zsh
 # if not, install from sources
 if [[ ! $(which zsh) ]]; then
+    echo "[*] zsh not found, try install from sources"
+
     curl -L https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz > ncurses.tar.gz
     tar xf ncurses.tar.gz
     cd ncurses-*
@@ -34,6 +36,12 @@ if [[ ! $(which zsh) ]]; then
     echo "export PATH=\$HOME/local/bin:\$PATH" >> ~/.bashrc
     echo "export SHELL=\`which zsh\`" >> ~/.bashrc
     echo "[ -f \"\$SHELL\" ] && exec \"\$SHELL\" -l" >> ~/.bashrc
+fi
+
+# still no zsh, abort
+if [[ ! $(which zsh) ]]; then
+    echo "[-] Could not install zsh from sources, sorry, abort"
+    exit 1
 fi
 
 chsh -s $(which zsh)
