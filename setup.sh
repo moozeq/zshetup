@@ -14,7 +14,7 @@ install_packages() {
             bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
         brew update
-        brew install python3 curl wget rsync git imagemagick gcc zsh
+        brew install python3 curl wget rsync git imagemagick gcc zsh llvm
         brew install --cask visual-studio-code
     else
         echo "[-] OS $OSTYPE not recognized, abort"
@@ -99,12 +99,14 @@ install_custom_aliases() {
 
 install_vscode_linux() {
     # do it only after zsh setup
-    VS_BIN=$HOME/VSCode-linux-x64/bin
-
     curl -L https://go.microsoft.com/fwlink/?LinkID=620884 > $HOME/code.tar.gz
     tar xf $HOME/code.tar.gz --directory $HOME
     rm $HOME/code.tar.gz
-    echo "export PATH=\"\$PATH:\$VS_BIN\"" >> ~/.zshrc
+    echo "export PATH=\"\$PATH:\$HOME/VSCode-linux-x64/bin\"" >> ~/.zshrc
+}
+
+install_llvm_linux() {
+    bash -c "$(curl -fsSL https://apt.llvm.org/llvm.sh)"
 }
 
 change_default_shell() {
@@ -136,9 +138,14 @@ install_powerlevel10k
 install_pip_modules
 install_custom_aliases
 
-if [[ ! $(which code) ]]; then
+if [[ ! $(which code) && "$OSTYPE" == "linux-gnu"* ]]; then
     echo "[*] Visual Studio Code not found, installing"
     install_vscode_linux
+fi
+
+if [[ ! $(which clang) && "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "[*] clang not found, installing"
+    install_llvm_linux
 fi
 
 # add .local bin directory
