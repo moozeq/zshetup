@@ -10,11 +10,12 @@ Install and configure zsh environment. Single script which:
     - [zsh-completions](https://github.com/zsh-users/zsh-completions)
     - [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
     - [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
-    - ``git extract colorize cp rsync pip virtualenv command-not-found common-aliases colored-man-pages catimg``
+    - ``git extract colorize cp rsync pip virtualenv command-not-found colored-man-pages catimg``
+    - ``common-aliases`` without ``rm/cp/mv -i``
     - ``osx`` (for MacOS only)
 - sets theme [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - installs python pip packages (``virtualenv pygments``)
-- adds some custom aliases (``edt src cls ll``)
+- adds some custom aliases (``edt src cls``)
 
 # Requirements
 
