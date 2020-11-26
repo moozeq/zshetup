@@ -75,6 +75,7 @@ install_plugins() {
 
     # change autosuggest background
     echo "ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'" >> ~/.zshrc
+    echo "export TERM=xterm-256color" >> ~/.zshrc
 }
 
 install_powerlevel10k() {
