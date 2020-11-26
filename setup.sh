@@ -7,15 +7,14 @@ install_packages() {
             apt-get update && apt-get install -y sudo
         fi
         echo "[*] Installing packages, if you are not in sudoers, skip this step with CTRL + C"
-        sudo apt-get update
-        sudo apt-get install -y python3 python3-dev python3-pip python3-venv nano code curl wget rsync git zsh
+        sudo apt-get update && sudo apt-get install -y build-essential python3 python3-dev python3-pip python3-venv nano curl wget rsync git zsh
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # install brew if not found
         if [[ ! $(which brew) ]]; then
             bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
         brew update
-        brew install python3 curl wget rsync git imagemagick zsh
+        brew install python3 curl wget rsync git imagemagick gcc zsh
         brew install --cask visual-studio-code
     else
         echo "[-] OS $OSTYPE not recognized, abort"
@@ -24,8 +23,6 @@ install_packages() {
 }
 
 install_zsh_from_sources() {
-    echo "[*] zsh not found, try install from sources"
-
     curl -L https://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz > ncurses.tar.gz
     tar xf ncurses.tar.gz
     cd ncurses-*
@@ -100,6 +97,16 @@ install_custom_aliases() {
     if [[ "$OSTYPE" == "darwin"* ]]; then echo "alias allow-apps='sudo spctl --master-disable'" >> $CUSTOM_ALIASES; fi
 }
 
+install_vscode_linux() {
+    # do it only after zsh setup
+    VS_BIN=$HOME/VSCode-linux-x64/bin
+
+    curl -L https://go.microsoft.com/fwlink/?LinkID=620884 > $HOME/code.tar.gz
+    tar xf $HOME/code.tar.gz --directory $HOME
+    rm $HOME/code.tar.gz
+    echo "export PATH=\"\$PATH:\$VS_BIN\"" >> ~/.zshrc
+}
+
 change_default_shell() {
     chsh -s $(which zsh)
 }
@@ -113,6 +120,7 @@ install_packages
 # check if successfully installed zsh
 # if not, install from sources
 if [[ ! $(which zsh) ]]; then
+    echo "[*] zsh not found, try install from sources"
     install_zsh_from_sources
 fi
 
@@ -128,8 +136,13 @@ install_powerlevel10k
 install_pip_modules
 install_custom_aliases
 
+if [[ ! $(which code) ]]; then
+    echo "[*] Visual Studio Code not found, installing"
+    install_vscode_linux
+fi
+
 # add .local bin directory
-echo "export PATH=\"\$PATH:\$HOME/.local/bin\"" >> ~/.zshrc
+echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/local/bin\"" >> ~/.zshrc
 
 change_default_shell
 
