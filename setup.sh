@@ -7,7 +7,8 @@ install_packages() {
             apt-get update && apt-get install -y sudo
         fi
         echo "[*] Installing packages, if you are not in sudoers, skip this step with CTRL + C"
-        sudo apt-get update && sudo apt-get install -y build-essential python3 python3-dev python3-pip python3-venv nano curl wget rsync git zsh
+        sudo apt-get update
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential lsb-release software-properties-common python3 python3-dev python3-pip python3-venv nano curl wget rsync git zsh
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # install brew if not found
         if [[ ! $(which brew) ]]; then

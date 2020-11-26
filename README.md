@@ -2,7 +2,7 @@
 
 Install and configure zsh environment. Single script which:
 - installs brew (for MacOS only)
-- installs packages (``python3 python3-dev python3-pip python3-venv nano curl wget rsync git zsh sudo``)
+- installs many helpful packages (i.e. ``python3 rsync git``)
 - sets default shell to ``zsh``
 - installs [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) with plugins:
     - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
@@ -13,9 +13,11 @@ Install and configure zsh environment. Single script which:
     - ``git extract colorize cp rsync pip virtualenv command-not-found colored-man-pages catimg``
     - ``common-aliases`` without ``rm/cp/mv -i``
     - ``osx`` (for MacOS only)
-- sets theme [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- sets theme to [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - installs python pip packages (``virtualenv pygments``)
 - adds some custom aliases (``edt src cls``)
+- installs [llvm](https://llvm.org/)
+- installs [Visual Studio Code](https://code.visualstudio.com/)
 
 # Requirements
 
