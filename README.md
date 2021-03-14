@@ -11,19 +11,19 @@ Install and configure zsh environment. Single script which:
     - [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
     - [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use)
     - ``git extract colorize cp rsync pip virtualenv command-not-found colored-man-pages catimg``
-    - ``common-aliases`` without ``rm/cp/mv -i``
+    - ``common-aliases`` (without ``rm/cp/mv -i``)
     - ``osx`` (for MacOS only)
 - sets theme to [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - installs python pip packages (``virtualenv pygments``)
-- adds some custom aliases (``edt src cls``)
+- adds some custom aliases (``edt src cls allow-apps``)
 - installs [llvm](https://llvm.org/)
-- installs [Visual Studio Code](https://code.visualstudio.com/)
+- installs [VSCodium](https://vscodium.com/)
 
 # Requirements
 
 Requires ``curl``:
 - MacOS: ``brew update && brew install curl``
-- Ubuntu: ``apt update && apt install -y curl``
+- Ubuntu: ``apt update && apt-get install -y curl``
 
 # Install
 

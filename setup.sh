@@ -8,15 +8,38 @@ install_packages() {
         fi
         echo "[*] Installing packages, if you are not in sudoers, skip this step with CTRL + C"
         sudo apt-get update
-        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential lsb-release software-properties-common python3 python3-dev python3-pip python3-venv nano curl wget rsync git zsh
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        build-essential \
+        lsb-release \
+        software-properties-common \
+        python3 \
+        python3-dev \
+        python3-pip \
+        python3-venv \
+        nano \
+        curl \
+        wget \
+        rsync \
+        git \
+        vscodium \
+        zsh
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # install brew if not found
         if [[ ! $(which brew) ]]; then
             bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
         brew update
-        brew install python3 curl wget rsync git imagemagick gcc zsh llvm
-        brew install --cask visual-studio-code
+        brew install \
+        python3 \
+        curl \
+        wget \
+        rsync \
+        git \
+        imagemagick \
+        gcc \
+        zsh \
+        llvm
+        brew install --cask vscodium
     else
         echo "[-] OS $OSTYPE not recognized, abort"
         exit 1
@@ -93,18 +116,10 @@ install_custom_aliases() {
     sed -i "s@alias mv='mv -i'@# alias mv='mv -i'@g" $CUSTOM_ALIASES
     # add custom aliases edt, src and cls
     echo "alias edt='nano ~/.zshrc'" >> $CUSTOM_ALIASES
-    echo "alias src='source ~/.zshrc'" >> $CUSTOM_ALIASES
+    echo "alias src='exec $(which zsh)'" >> $CUSTOM_ALIASES
     echo "alias cls='clear && printf \"\e[3J\"'" >> $CUSTOM_ALIASES
-    # add allow-apps hidden option if MacOS
+    # add allow-apps hidden option if MacOS (https://apple.stackexchange.com/a/245029)
     if [[ "$OSTYPE" == "darwin"* ]]; then echo "alias allow-apps='sudo spctl --master-disable'" >> $CUSTOM_ALIASES; fi
-}
-
-install_vscode_linux() {
-    # do it only after zsh setup
-    curl -L https://go.microsoft.com/fwlink/?LinkID=620884 > $HOME/code.tar.gz
-    tar xf $HOME/code.tar.gz --directory $HOME
-    rm $HOME/code.tar.gz
-    echo "export PATH=\"\$PATH:\$HOME/VSCode-linux-x64/bin\"" >> ~/.zshrc
 }
 
 install_llvm_linux() {
@@ -139,11 +154,6 @@ install_plugins
 install_powerlevel10k
 install_pip_modules
 install_custom_aliases
-
-if [[ ! $(which code) && "$OSTYPE" == "linux-gnu"* ]]; then
-    echo "[*] Visual Studio Code not found, installing"
-    install_vscode_linux
-fi
 
 if [[ ! $(which clang) && "$OSTYPE" == "linux-gnu"* ]]; then
     echo "[*] clang not found, installing"
