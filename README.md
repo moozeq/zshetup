@@ -27,11 +27,21 @@ Requires ``curl``:
 
 # Install
 
+## One liner
+
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/moozeq/ZSH_Setup/master/setup.sh)"
 ```
 
-# Docker
+## Manual
+
+```bash
+git clone https://github.com/moozeq/ZSH_Setup.git
+cd ZSH_Setup
+./setup.sh
+```
+
+## Docker
 
 ```
 docker build -t zsh-ubuntu github.com/moozeq/ZSH_Setup
