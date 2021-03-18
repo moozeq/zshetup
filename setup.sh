@@ -21,7 +21,6 @@ install_packages() {
         wget \
         rsync \
         git \
-        vscodium \
         zsh
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # install brew if not found
@@ -122,6 +121,13 @@ install_custom_aliases() {
     if [[ "$OSTYPE" == "darwin"* ]]; then echo "alias allow-apps='sudo spctl --master-disable'" >> $CUSTOM_ALIASES; fi
 }
 
+install_vscodium_linux() {
+    wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | gpg --dearmor | sudo dd of=/etc/apt/trusted.gpg.d/vscodium.gpg 
+    echo 'deb https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs/ vscodium main' | sudo tee --append /etc/apt/sources.list.d/vscodium.list 
+    sudo apt-get update
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y codium
+}
+
 install_llvm_linux() {
     bash -c "$(curl -fsSL https://apt.llvm.org/llvm.sh)"
 }
@@ -154,6 +160,11 @@ install_plugins
 install_powerlevel10k
 install_pip_modules
 install_custom_aliases
+
+if [[ ! $(which code) && "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "[*] vscodium not found, installing"
+    install_vscodium_linux
+fi
 
 if [[ ! $(which clang) && "$OSTYPE" == "linux-gnu"* ]]; then
     echo "[*] clang not found, installing"
