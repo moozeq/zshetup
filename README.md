@@ -1,4 +1,4 @@
-# ZSH_Setup
+# zshetup
 
 Install and configure zsh environment. Single script which:
 - installs brew (for MacOS only)
@@ -30,20 +30,20 @@ Requires ``curl``:
 ## One liner
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/moozeq/ZSH_Setup/master/setup.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/moozeq/zshetup/master/setup.sh)"
 ```
 
 ## Manual
 
 ```bash
-git clone https://github.com/moozeq/ZSH_Setup.git
-cd ZSH_Setup
+git clone https://github.com/moozeq/zshetup.git
+cd zshetup
 ./setup.sh
 ```
 
 ## Docker
 
 ```
-docker build -t zsh-ubuntu github.com/moozeq/ZSH_Setup
+docker build -t zsh-ubuntu github.com/moozeq/zshetup
 docker run --name run_docker_run -it zsh-ubuntu
 ```
